@@ -1,6 +1,6 @@
 {
   "name": "request-myself",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Auto request to your domain.",
   "main": "index.js",
   "author": "Hongarc",

@@ -7,23 +7,25 @@ const STT_CODE_OK = 200;
 let pathname = '/myself';
 let maxErr = 10;
 let _callback = () => {
+    console.log('You should set callback of option.');
 };
 
 let hostname;
 let timeout = 600000;
 
-let errCounter = 0;
+const COUNTER_START = 0;
+let errCounter = COUNTER_START;
 let intervalID = -1;
 
-const requestEach = () => {
+const requestMyself = () => {
     request(hostname + pathname, (error, res) => {
         if (res && res.statusCode === STT_CODE_OK) {
-            errCounter = 0;
-            requestEach();
+            errCounter = COUNTER_START;
             _callback(null, res);
         } else {
             errCounter++;
             if (errCounter < maxErr) {
+                requestMyself();
             } else {
                 _callback(new Error(`Requested ${errCounter} time.`));
                 clearInterval(intervalID);
@@ -32,7 +34,7 @@ const requestEach = () => {
     });
 };
 
-let handleOption = (option) => {
+const handleOption = option => {
 
     hostname = new URL(option.hostname).origin;
     timeout = parseInt(option.timeout) || timeout;
@@ -43,15 +45,15 @@ let handleOption = (option) => {
     maxErr = option.maxErr || maxErr;
 };
 
-let requestMyself = (option, callback) => {
+module.exports = (option, callback) => {
     handleOption(option);
 
     if (option.callback && typeof option.callback !== 'function') {
-        throw new Error('callback must be function.')
+        throw new Error('callback must be function.');
     }
     _callback = callback || _callback;
 
-    intervalID = setInterval(requestEach, timeout);
+    intervalID = setInterval(requestMyself, timeout);
     return (req, res, next) => {
         if (req.originalUrl === pathname) {
             res.writeHead(STT_CODE_OK, {
@@ -63,5 +65,3 @@ let requestMyself = (option, callback) => {
         }
     };
 };
-
-module.exports = requestMyself;
