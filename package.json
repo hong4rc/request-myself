@@ -1,0 +1,18 @@
+{
+  "name": "request-myself",
+  "version": "0.0.1",
+  "description": "Auto request to your domain.",
+  "main": "index.js",
+  "author": "Hongarc",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.85.0"
+  },
+  "files": ["index.js"],
+  "homepage": "https://github.com/hongarc/request-myself",
+  "bugs": "https://github.com/hongarc/request-myself/issues",
+  "repository": {
+    "url": "https://github.com/hongarc/request-myself",
+    "type": "git"
+  }
+}

@@ -1,0 +1,9 @@
+# Yarn
+yarn.lock
+yarn-error.log
+
+#Intellij
+.idea/
+
+# Node module
+node_modules/
