@@ -14,5 +14,8 @@
   "repository": {
     "url": "https://github.com/hongarc/request-myself",
     "type": "git"
+  },
+  "engines": {
+    "node": "^10.0.0"
   }
 }
